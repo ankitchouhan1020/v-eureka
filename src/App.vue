@@ -22,7 +22,7 @@
       <v-toolbar-title>Eureka</v-toolbar-title>
     </v-toolbar>
     <v-container>
-      <main>
+      <main class="ma-4">
         <router-view></router-view>
       </main>
     </v-container>
