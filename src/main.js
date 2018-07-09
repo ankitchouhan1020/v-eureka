@@ -9,6 +9,7 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css' // Ensure
 import '@mdi/font/css/materialdesignicons.css'
 import Vuelidate from 'vuelidate'
 Vue.use(Vuelidate)
+
 Vue.use(Vuetify, {
   iconfont: 'mdi' ,// 'md' || 'mdi' || 'fa' || 'fa4'
 });

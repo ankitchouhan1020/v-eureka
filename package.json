@@ -14,7 +14,8 @@
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vuelidate": "^0.7.4",
-    "vuetify": "^1.1.1"
+    "vuetify": "^1.1.1",
+    "webpack-ssr": "^0.1.14"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.1.0",

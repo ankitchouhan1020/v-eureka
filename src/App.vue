@@ -1,5 +1,5 @@
 <template>
-  <v-app >
+  <v-app>
     <v-navigation-drawer
       v-model="drawer"
       clipped
@@ -39,6 +39,7 @@
       return {
         drawer: true,
         menuItems: [
+          {title: 'Home', icon: 'home', path: 'home'},
           {title: 'Dashboard', icon: 'dashboard', path: 'dashboard'},
           {title: 'Hall Of Fame', icon: 'person_pin', path: 'rank'},
           {title: 'Rules', icon: 'layers', path: 'rules'},
