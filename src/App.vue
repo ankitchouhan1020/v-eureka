@@ -1,12 +1,13 @@
 <template>
   <v-app>
     <v-navigation-drawer
+      :clipped="$vuetify.breakpoint.lgAndUp"
       v-model="drawer"
-      clipped
       fixed
+      clipped-left
       app
     >
-      <v-list >
+      <v-list app>
         <v-list-tile @click="" v-for="item in menuItems" :key="item.title" router :to="item.path">
           <v-list-tile-action >
             <v-icon>{{item.icon}}</v-icon>
@@ -17,15 +18,13 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar app fixed clipped-left>
+    <v-toolbar app fixed clipped-left :clipped-left="$vuetify.breakpoint.lgAndUp">
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>Eureka</v-toolbar-title>
     </v-toolbar>
-
-      <main>
+      <main >
         <router-view></router-view>
       </main>
-
     <v-footer app fixed>
       <span>&copy; 2017</span>
     </v-footer>
