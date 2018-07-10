@@ -1,23 +1,35 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import App from '@/App'
-import Dashboard from '@/components/Dashboard'
-import Forum from '@/components/Forum'
-import Rank from '@/components/Rank'
-import Rules from '@/components/Rules'
-import Signup from '@/components/Profile/Signup'
-import Signin from '@/components/Profile/Signin'
+//import Dashboard from '@/components/Dashboard'
+// import Forum from '@/components/Forum'
+// import Rank from '@/components/Rank'
+// import Rules from '@/components/Rules'
+// import Signup from '@/components/Profile/Signup'
+// import Signin from '@/components/Profile/Signin'
 import Home from '@/components/Home'
-
+import Loader from '@/components/Loader'
 Vue.use(Router)
+
+const Dashboard = () => import('@/components/Dashboard')
+const Forum = () => import('@/components/Forum')
+const Rank = () => import('@/components/Rank')
+const Rules = () => import('@/components/Rules')
+const Signup = () => import('@/components/Profile/Signup')
+const Signin = () => import('@/components/Profile/Signin')
+
+
+
+
+
 
 export default new Router({
   routes: [
-    {
-      path: '/',
-      name: 'App',
-      component: App
-    },
+  //   {
+  //   path: '/',
+  //   name: 'App',
+  //   component: App
+  // },
     {
       path: '/dashboard',
       name: 'Dashboard',
@@ -49,10 +61,15 @@ export default new Router({
       component: Signup
     },
     {
-      path: '/home',
+      path: '/',
       name: 'Home',
       component: Home
     },
-
-  ]
+    {
+      path: '/loader',
+      name: 'Loader',
+      component: Loader
+    },
+  ],
+  mode: 'history',
 })
