@@ -19,7 +19,7 @@ Vue.use(Vuetify, {
     error: '#FFCF44',
     third: '#B0BEC5',
     info: '#72DEFF',
-    warning: '#FFC107'
+    fourth: '#525260'
   },
   iconfont: 'mdi' ,// 'md' || 'mdi' || 'fa' || 'fa4'
 });
