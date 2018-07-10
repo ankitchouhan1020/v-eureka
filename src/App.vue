@@ -19,7 +19,9 @@
     </v-navigation-drawer>
     <v-toolbar app fixed clipped-left :clipped-left="$vuetify.breakpoint.lgAndUp">
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title>Eureka</v-toolbar-title>
+      <v-toolbar-title>Eureka - {{getUsername}}</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn v-if="getUsername" @click="">Logout</v-btn>
     </v-toolbar>
       <main >
         <router-view></router-view>
@@ -44,6 +46,11 @@
           {title: 'Sign Up', icon: 'face', path: 'signup'},
           {title: 'Sign in', icon: 'lock_open', path: 'signin'},
         ]
+      }
+    },
+    computed:{
+      getUsername: function(){
+        return this.$store.state.username;
       }
     }
   }
