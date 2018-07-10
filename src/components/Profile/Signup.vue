@@ -25,7 +25,7 @@
               v-model="password"
               label="Password"
               hint="At least 8 characters"
-              value=""
+              value="12345678"
               required
               class="input-group--focused"
               @click:append="show = !show"
@@ -57,7 +57,6 @@
 
 <script>
   import axios from 'axios'
-
   export default {
     name: 'Signup',
     data: () => ({
@@ -93,13 +92,7 @@
     methods: {
       submit () {
         if (this.$refs.form.validate()) {
-          // Native form submission is not yet supported
-          axios.post('/api/submit', {
-            name: this.name,
-            email: this.email,
-            select: this.select,
-            checkbox: this.checkbox
-          })
+
         }
       },
       clear () {
