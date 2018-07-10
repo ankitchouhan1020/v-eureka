@@ -1,9 +1,9 @@
 <template>
   <v-container>
-    <v-content>
-      <h1 class="display-2 text-xs-center ma-2">LEADERBOARD</h1>
-      <v-subheader class="justify-center">Be a part of the hall of fame. Join the hunt.</v-subheader>
-      <v-card>
+    <v-content >
+      <h1 class="text-xs-center ma-2 tool-title">LEADERBOARD</h1>
+      <v-subheader class="justify-center tile-title">Be a part of the hall of fame. Join the hunt.</v-subheader>
+      <v-card class="tile-title">
         <v-card-title>
           Hall Of Fame
           <v-spacer></v-spacer>
@@ -20,8 +20,9 @@
           :search="search"
           :pagination.sync="pagination"
           hide-actions
+          class="third"
         >
-          <template slot="items" slot-scope="props">
+          <template slot="items" slot-scope="props" >
             <td >{{ props.item.rank}}</td>
             <td class="text-xs-center">{{ props.item.name }}</td>
             <td class="text-xs-center">{{ props.item.branch }}</td>
@@ -142,7 +143,9 @@ export default {
     }
   }
 </script>
-
 <style scoped>
-
+  .tool-title{
+    font-size: 3em;
+    margin-bottom: -10px;
+  }
 </style>

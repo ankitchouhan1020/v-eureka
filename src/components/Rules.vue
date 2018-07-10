@@ -1,9 +1,9 @@
 <template>
   <v-container >
     <v-content>
-      <h1 class="display-2 text-xs-center">HOW TO PLAY</h1>
+      <h1 class="tool-title text-xs-center">HOW TO PLAY</h1>
       <v-subheader class="justify-center">Where is the fun without a bit of risk?</v-subheader>
-      <v-layout class="xs12 sm12 justify-center ma-4">
+      <v-layout class="tile-title xs12 sm12 justify-center ma-4">
         <ul>
           <li>The rules are pretty much the same for those who have played the previous editions of Klueless. But there are a few more things we have added that we feel might have been missed out on earlier occasions. Hence, irrespective of whether you are a Klueless veteran or a new player, we request that you kindly take a moment to read the wall of text that follows...</li>
           <li>The first rule of Klueless is you do NOT talk about Klueless...</li>
@@ -27,5 +27,8 @@
 </script>
 
 <style scoped>
-
+  .tool-title{
+    font-size: 3em;
+    margin-bottom: -10px;
+  }
 </style>

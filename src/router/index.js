@@ -1,9 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
-import Loader from '@/components/Loader'
-Vue.use(Router)
-
+//import Loader from '@/components/Loader'
 const Dashboard = () => import('@/components/Dashboard')
 const Forum = () => import('@/components/Forum')
 const Rank = () => import('@/components/Rank')
@@ -11,6 +9,7 @@ const Rules = () => import('@/components/Rules')
 const Signup = () => import('@/components/Profile/Signup')
 const Signin = () => import('@/components/Profile/Signin')
 
+Vue.use(Router)
 export default new Router({
   routes: [
     {
@@ -53,11 +52,11 @@ export default new Router({
       name: 'Home',
       component: Home
     },
-    {
-      path: '/loader',
-      name: 'Loader',
-      component: Loader
-    },
+    // {
+    //   path: '/',
+    //   name: 'Loader',
+    //   component: Loader
+    // },
   ],
   mode: 'history',
 })

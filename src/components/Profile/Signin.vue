@@ -3,8 +3,8 @@
     <v-container>
     <v-layout row wrap>
       <v-flex xs12 sm6 offset-sm3>
-        <h3 class="display-1 text-xs-center ma-4">Win the Battle</h3>
-        <v-form ref="form" v-model="valid" lazy-validation>
+        <h3 class="tool-title text-xs-center ma-4">Win the Battle</h3>
+        <v-form ref="form" v-model="valid" lazy-validation class="tile-title">
           <v-text-field
             v-model="email"
             :rules="emailRules"
@@ -22,12 +22,11 @@
             class="input-group--focused"
             @click:append="show = !show"
           ></v-text-field>
-          <v-btn
-            @click="submit"
-          >
-            submit
-          </v-btn>
-          <v-btn @click="clear">clear</v-btn>
+          <v-flex sm6 offset-sm3>
+            <v-btn class="primary" @click="submit">submit</v-btn>
+            <v-btn class="first" @click="clear">clear</v-btn>
+          </v-flex>
+
         </v-form>
       </v-flex>
 
@@ -71,3 +70,9 @@
     }
   }
 </script>
+<style scoped>
+  .tool-title{
+    font-size: 3em;
+    margin-bottom: -10px;
+  }
+</style>

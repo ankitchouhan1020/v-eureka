@@ -10,8 +10,20 @@ import '@mdi/font/css/materialdesignicons.css'
 import {store} from '@/store/store'
 
 Vue.use(Vuetify, {
+  theme: {
+    first:'#045D55',
+    accent:'#33333F',
+    success: '#373740',
+    primary: '#1EB980',
+    secondary: '#33333D',
+    error: '#FFCF44',
+    third: '#B0BEC5',
+    info: '#72DEFF',
+    warning: '#FFC107'
+  },
   iconfont: 'mdi' ,// 'md' || 'mdi' || 'fa' || 'fa4'
 });
+
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */

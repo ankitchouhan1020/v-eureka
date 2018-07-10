@@ -3,8 +3,8 @@
     <v-container>
       <v-layout row wrap >
         <v-flex xs12 sm6 offset-sm3>
-          <h3 class="display-1 text-xs-center ma-4">JOIN THE HUNT</h3>
-          <v-form ref="form" v-model="valid" lazy-validation>
+          <h3 class="tool-title text-xs-center ma-4">JOIN THE HUNT</h3>
+          <v-form ref="form" v-model="valid" lazy-validation class="tile-title">
             <v-text-field
               v-model="name"
               :rules="nameRules"
@@ -41,14 +41,10 @@
               v-model="checkbox"
               label="Do you want to receive email about our future events?"
             ></v-checkbox>
-
-            <v-btn
-              :disabled="!valid"
-              @click="submit"
-            >
-              submit
-            </v-btn>
-            <v-btn @click="clear">clear</v-btn>
+            <v-flex sm6 offset-sm3>
+              <v-btn class="primary" @click="submit">submit</v-btn>
+              <v-btn class="first" @click="clear">clear</v-btn>
+            </v-flex>
           </v-form>
         </v-flex>
 
@@ -112,3 +108,9 @@
     }
   }
 </script>
+<style scoped>
+  .tool-title{
+    font-size: 3em;
+    margin-bottom: -10px;
+  }
+</style>

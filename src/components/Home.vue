@@ -1,9 +1,9 @@
 <template>
   <v-container>
     <v-content>
-      <h2 class="display-2 text-xs-center">WHAT IS Eureka?</h2>
+      <h2 class="tool-title text-xs-center ">WHAT IS EUREKA ?</h2>
       <v-subheader class="justify-center">As if you did not know</v-subheader>
-      <blockquote>
+      <blockquote class="tile-title">
         We bring to you this year, the interstellar edition of your favourite cause of hair loss with some mighty celebrity endorsements.<br><br>
 
         "I have a dream that one day every level shall be cracked, the rough places will be made plain, and the crooked places will be made straight, and the eternal glory of the Hall of Fame shall be revealed, and all flesh shall see it together" - Martin Luther King, shortly before being incepted by Leo diCaprio, who then got stuck in a level inside a level inside a level inside a (you know where this is going).<br><br>
@@ -29,7 +29,9 @@
         name: "Home"
     }
 </script>
-
 <style scoped>
-
+  .tool-title{
+    font-size: 3em;
+    margin-bottom: -10px;
+  }
 </style>
