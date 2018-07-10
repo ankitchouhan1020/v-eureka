@@ -23,7 +23,6 @@
             @click:append="show = !show"
           ></v-text-field>
           <v-btn
-            :disabled="!valid"
             @click="submit"
           >
             submit

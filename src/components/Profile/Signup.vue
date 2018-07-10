@@ -22,10 +22,11 @@
               :append-icon="show ? 'visibility_off' : 'visibility'"
               :rules="[rules.required, rules.min]"
               :type="show ? 'text' : 'password'"
-              name="input-10-2"
+              v-model="password"
               label="Password"
               hint="At least 8 characters"
-              value=''
+              value=""
+              required
               class="input-group--focused"
               @click:append="show = !show"
             ></v-text-field>

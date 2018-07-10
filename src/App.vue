@@ -1,9 +1,8 @@
 <template>
-  <v-app>
+  <v-app id="inspire">
     <v-navigation-drawer
       :clipped="$vuetify.breakpoint.lgAndUp"
       v-model="drawer"
-      fixed
       clipped-left
       app
     >

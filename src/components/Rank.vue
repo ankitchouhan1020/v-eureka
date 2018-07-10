@@ -1,45 +1,50 @@
 <template>
-  <v-content>
-    <v-container>
+  <v-container>
+    <v-content>
       <h1 class="display-2 text-xs-center ma-2">LEADERBOARD</h1>
       <v-subheader class="justify-center">Be a part of the hall of fame. Join the hunt.</v-subheader>
-        <v-card>
-          <v-card-title>
-            Eureka
-            <v-spacer></v-spacer>
-            <v-text-field
-              v-model="search"
-              append-icon="search"
-              label="Search"
-              single-line
-              hide-details
-            ></v-text-field>
-          </v-card-title>
-          <v-data-table
-            :headers="headers"
-            :items="users"
-            :search="search"
-          >
-            <template slot="items" slot-scope="props">
-              <td >{{ props.item.rank}}</td>
-              <td class="text-xs-center">{{ props.item.name }}</td>
-              <td class="text-xs-center">{{ props.item.branch }}</td>
-              <td class="text-xs-center">{{ props.item.level }}</td>
-            </template>
-            <v-alert slot="no-results" :value="true" color="error" icon="warning">
-              Your search for "{{ search }}" found no results.
-            </v-alert>
-          </v-data-table>
-        </v-card>
-    </v-container>
-  </v-content>
+      <v-card>
+        <v-card-title>
+          Hall Of Fame
+          <v-spacer></v-spacer>
+          <v-text-field
+            v-model="search"
+            append-icon="search"
+            label="Search"
+            single-line
+          ></v-text-field>
+        </v-card-title>
+        <v-data-table
+          :headers="headers"
+          :items="users"
+          :search="search"
+          :pagination.sync="pagination"
+          hide-actions
+        >
+          <template slot="items" slot-scope="props">
+            <td >{{ props.item.rank}}</td>
+            <td class="text-xs-center">{{ props.item.name }}</td>
+            <td class="text-xs-center">{{ props.item.branch }}</td>
+            <td class="text-xs-center">{{ props.item.level }}</td>
+          </template>
+          <v-alert slot="no-results" :value="true" color="error" icon="warning">
+            Your search for "{{ search }}" found no results.
+          </v-alert>
+        </v-data-table>
+        <div class="text-xs-center pt-2">
+          <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
+        </div>
+      </v-card>
+    </v-content>
+  </v-container>
 </template>
 
 <script>
-  export default {
+export default {
     data () {
       return {
         name:'',
+        pagination: {},
         search: '',
         headers: [
           {
@@ -62,6 +67,13 @@
           },
           {
             value: false,
+            name: 'Ankit',
+            rank: 1,
+            level: 12,
+            branch: 'CSE'
+          },
+          {
+            value: false,
             name: 'Anand',
             rank: 4,
             level: 1,
@@ -74,7 +86,58 @@
             level: 2,
             branch: 'ECE'
           },
+          {
+            value: false,
+            name: 'Appu',
+            rank: 10,
+            level: 2,
+            branch: 'ECE'
+          },
+          {
+            value: false,
+            name: 'Appu',
+            rank: 10,
+            level: 2,
+            branch: 'ECE'
+          },
+          {
+            value: false,
+            name: 'Appu',
+            rank: 10,
+            level: 2,
+            branch: 'ECE'
+          },
+          {
+            value: false,
+            name: 'Appu',
+            rank: 10,
+            level: 2,
+            branch: 'ECE'
+          },
+          {
+            value: false,
+            name: 'Appu',
+            rank: 10,
+            level: 2,
+            branch: 'ECE'
+          },
+          {
+            value: false,
+            name: 'Appu',
+            rank: 10,
+            level: 2,
+            branch: 'ECE'
+          },
         ]
+      }
+    },
+    computed: {
+      pages () {
+        if (this.pagination.rowsPerPage == null ||
+          this.pagination.totalItems == null
+        ) return 0
+
+        return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
       }
     }
   }

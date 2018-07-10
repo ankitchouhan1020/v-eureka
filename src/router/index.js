@@ -1,12 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import App from '@/App'
-//import Dashboard from '@/components/Dashboard'
-// import Forum from '@/components/Forum'
-// import Rank from '@/components/Rank'
-// import Rules from '@/components/Rules'
-// import Signup from '@/components/Profile/Signup'
-// import Signin from '@/components/Profile/Signin'
 import Home from '@/components/Home'
 import Loader from '@/components/Loader'
 Vue.use(Router)
@@ -18,18 +11,13 @@ const Rules = () => import('@/components/Rules')
 const Signup = () => import('@/components/Profile/Signup')
 const Signin = () => import('@/components/Profile/Signin')
 
-
-
-
-
-
 export default new Router({
   routes: [
-  //   {
-  //   path: '/',
-  //   name: 'App',
-  //   component: App
-  // },
+    {
+      path: '*',
+      name:'Home',
+      component: Home
+    },
     {
       path: '/dashboard',
       name: 'Dashboard',
