@@ -42,7 +42,12 @@
               label="Do you want to receive email about our future events?"
             ></v-checkbox>
             <v-flex sm6 offset-sm3>
-              <v-btn class="primary" @click="submit">submit</v-btn>
+              <v-btn class="primary" @click="onSignUp" :loading="loading" :disabled="loading">
+                Register
+                <span slot="loader" class="custom-loader">
+                   <v-icon light>cached</v-icon>
+                </span>
+              </v-btn>
               <v-btn class="first" @click="clear">clear</v-btn>
             </v-flex>
           </v-form>
@@ -51,12 +56,9 @@
       </v-layout>
     </v-container>
   </v-content>
-
-
 </template>
 
 <script>
-  import axios from 'axios'
   export default {
     name: 'Signup',
     data: () => ({
@@ -72,14 +74,7 @@
         v => /.+@.+/.test(v) || 'E-mail must be valid'
       ],
       select: null,
-      braches: [
-        'CSE',
-        'ECE',
-        'Electrical',
-        'Civil',
-        'Royal Mech',
-        'MSME'
-      ],
+      braches: ['CSE','ECE','Electrical','Civil','Royal Mech','MSME'],
       checkbox: false,
       show : false,
       password: '',
@@ -88,15 +83,34 @@
         min: v => v.length >= 8 || 'Min 8 characters',
       },
     }),
-
+    computed:{
+      loading() {
+        return this.$store.getters.loading;
+      },
+    },
     methods: {
-      submit () {
+      onSignUp () {
         if (this.$refs.form.validate()) {
-
+          this.$store.dispatch('signUserUp', {
+            email: this.email, password: this.password,
+            branch: this.select, fullName: this.name, newsletter: this.checkbox
+          });
+          this.$store.dispatch('stopLoading');
+          this.$store.dispatch('clearUser');
+          this.$router.push('/signin');
         }
       },
       clear () {
-        this.$refs.form.reset()
+          this.$refs.form.reset();
+        }
+    },
+    watch: {
+      user (value) {
+        if (value !== null && value !== undefined) {
+          console.log('Logout ho gya ,wapas se login kr ab !! (signup.vue)')
+          this.clearUser();
+          this.$router.push('/signin');
+        }
       }
     }
   }
@@ -105,5 +119,17 @@
   .tool-title{
     font-size: 3em;
     margin-bottom: -10px;
+  }
+  .custom-loader {
+    animation: loader 1s infinite;
+    display: flex;
+  }
+  @keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 </style>

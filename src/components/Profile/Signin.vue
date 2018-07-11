@@ -4,6 +4,13 @@
     <v-layout row wrap>
       <v-flex xs12 sm6 offset-sm3>
         <h3 class="tool-title text-xs-center ma-4">Win the Battle</h3>
+        <v-layout row v-if="error">
+          <v-flex xs12 sm6 offset-sm3>
+            <v-alert dismissible @input="onDismissed" :value="true">
+              {{ error.message }}
+            </v-alert>
+          </v-flex>
+        </v-layout>
         <v-form ref="form" v-model="valid" lazy-validation class="tile-title">
           <v-text-field
             v-model="email"
@@ -15,7 +22,7 @@
             :append-icon="show ? 'visibility_off' : 'visibility'"
             :rules="[rules.required, rules.min]"
             :type="show ? 'text' : 'password'"
-            name="input-10-2"
+            v-model="password"
             label="Password"
             hint="At least 8 characters"
             value=''
@@ -23,13 +30,16 @@
             @click:append="show = !show"
           ></v-text-field>
           <v-flex sm6 offset-sm3>
-            <v-btn class="primary" @click="submit">submit</v-btn>
+            <v-btn class="primary" @click="onSignIn" :loading="loading" :disabled="loading">
+              Log in
+              <span slot="loader" class="custom-loader">
+                   <v-icon light>cached</v-icon>
+                </span>
+            </v-btn>
             <v-btn class="first" @click="clear">clear</v-btn>
           </v-flex>
-
         </v-form>
       </v-flex>
-
     </v-layout>
     </v-container>
   </v-content>
@@ -37,7 +47,7 @@
 
 <script>
   export default {
-    name: 'Signup',
+    name: 'Signin',
     data: () => ({
       valid: true,
       name: '',
@@ -57,15 +67,33 @@
         min: v => v.length >= 8 || 'Min 8 characters',
       },
     }),
-
-    methods: {
-      submit () {
-        if (this.$refs.form.validate()) {
-
-        }
+    computed:{
+      loading() {
+        return this.$store.getters.loading;
       },
+      error() {
+        return this.$store.getters.error;
+      },
+      user(){
+        return this.$store.getters.user;
+      }
+    },
+    watch: {
+      user(value) {
+        if (value !== null && value !== undefined) {
+          this.$router.push('/dashboard')
+        }
+      }
+    },
+    methods: {
+      onSignIn () {
+            this.$store.dispatch('signUserIn', {email: this.email, password: this.password})
+        },
       clear () {
         this.$refs.form.reset()
+      },
+      onDismissed () {
+        this.$store.dispatch('clearError');
       }
     }
   }
@@ -74,5 +102,17 @@
   .tool-title{
     font-size: 3em;
     margin-bottom: -10px;
+  }
+  .custom-loader {
+    animation: loader 1s infinite;
+    display: flex;
+  }
+  @keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 </style>

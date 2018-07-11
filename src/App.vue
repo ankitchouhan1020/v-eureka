@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire" dark class="accent">
+  <v-app dark class="accent">
     <v-navigation-drawer
       :clipped="$vuetify.breakpoint.lgAndUp"
       v-model="drawer"
@@ -7,8 +7,18 @@
       app
       class="secondary"
     >
-      <v-list app>
-        <v-list-tile @click="" v-for="item in menuItems" :key="item.title" router :to="item.path" class="text--darken-4">
+      <v-list app v-if="user">
+        <v-list-tile @click="" v-for="item in afterLoginNav" :key="item.title" router :to="item.path" class="text--darken-4">
+          <v-list-tile-action >
+            <v-icon >{{item.icon}}</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title class="tile-title">{{item.title}}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+      <v-list app v-else>
+        <v-list-tile @click="" v-for="item in beforeLoginNav" :key="item.title" router :to="item.path" class="text--darken-4">
           <v-list-tile-action >
             <v-icon >{{item.icon}}</v-icon>
           </v-list-tile-action>
@@ -20,9 +30,10 @@
     </v-navigation-drawer>
     <v-toolbar app fixed clipped-left :clipped-left="$vuetify.breakpoint.lgAndUp" class="secondary">
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title class="tool-title">Eureka - {{getUsername}}</v-toolbar-title>
+      <v-toolbar-title class="tool-title">Eureka</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn class="primary" v-if="getUsername" @click="$store.state.username = ''">Logout</v-btn>
+
+      <v-btn class="primary" v-show="user" @click="onLogout"><v-icon left>exit_to_app</v-icon>Logout</v-btn>
     </v-toolbar>
 
     <main>
@@ -42,21 +53,25 @@
     data: function () {
       return {
         drawer: true,
-        menuItems: [
-          {title: 'Home', icon: 'home', path: 'home'},
-          {title: 'Dashboard', icon: 'dashboard', path: 'dashboard'},
-          {title: 'Hall Of Fame', icon: 'person_pin', path: 'rank'},
-          {title: 'Rules', icon: 'layers', path: 'rules'},
-          {title: 'Forum', icon: 'forum', path: 'forum'},
-          {title: 'Sign Up', icon: 'face', path: 'signup'},
-          {title: 'Sign in', icon: 'lock_open', path: 'signin'},
-        ]
       }
     },
     computed:{
-      getUsername: function(){
-        return this.$store.state.username;
+      user() {
+        return this.$store.getters.user;
       },
+      beforeLoginNav (){
+        return this.$store.getters.beforeLoginNav;
+      },
+      afterLoginNav (){
+        return this.$store.getters.afterLoginNav;
+      },
+
+    },
+    methods: {
+      onLogout(){
+        this.$store.dispatch('onLogout');
+        this.$router.push('/home');
+      }
     }
   }
 </script>

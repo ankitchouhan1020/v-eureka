@@ -8,6 +8,7 @@ import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 import 'material-design-icons-iconfont/dist/material-design-icons.css' // Ensure you are using css-loader
 import '@mdi/font/css/materialdesignicons.css'
 import {store} from '@/store/store'
+import * as firebase from 'firebase'
 
 Vue.use(Vuetify, {
   theme: {
@@ -26,11 +27,20 @@ Vue.use(Vuetify, {
 
 Vue.config.productionTip = false;
 
-/* eslint-disable no-new */
 new Vue({
   store: store,
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  created () {
+    firebase.initializeApp({
+      apiKey: "AIzaSyClFfBS46nktb8Vu7LK69GsFlLip5iv4fQ",
+      authDomain: "eureka-5bd43.firebaseapp.com",
+      databaseURL: "https://eureka-5bd43.firebaseio.com",
+      projectId: "eureka-5bd43",
+      storageBucket: "eureka-5bd43.appspot.com",
+      messagingSenderId: "389158541916"
+    })
+  }
 });

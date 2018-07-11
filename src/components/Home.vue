@@ -21,7 +21,6 @@
       </blockquote>
     </v-content>
   </v-container>
-
 </template>
 
 <script>
