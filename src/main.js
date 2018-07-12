@@ -34,13 +34,6 @@ new Vue({
   components: { App },
   template: '<App/>',
   created () {
-    firebase.initializeApp({
-      apiKey: "AIzaSyClFfBS46nktb8Vu7LK69GsFlLip5iv4fQ",
-      authDomain: "eureka-5bd43.firebaseapp.com",
-      databaseURL: "https://eureka-5bd43.firebaseio.com",
-      projectId: "eureka-5bd43",
-      storageBucket: "eureka-5bd43.appspot.com",
-      messagingSenderId: "389158541916"
-    })
+    return this.$store.getters.config;
   }
 });

@@ -21,6 +21,14 @@ export const store = new Vuex.Store({
       {title: 'Forum', icon: 'forum', path: 'forum'},
     ],
     loader: null,
+    config: firebase.initializeApp({
+      apiKey: "AIzaSyClFfBS46nktb8Vu7LK69GsFlLip5iv4fQ",
+      authDomain: "eureka-5bd43.firebaseapp.com",
+      databaseURL: "https://eureka-5bd43.firebaseio.com",
+      projectId: "eureka-5bd43",
+      // storageBucket: "eureka-5bd43.appspot.com",
+      // messagingSenderId: "389158541916"
+    }),
   },
   mutations: {
     setUser(state,payload){
@@ -37,9 +45,12 @@ export const store = new Vuex.Store({
     },
     clearUser(state){
       state.user = null;
-    }
+    },
   },
   getters: {
+    config(state){
+      return state.config;
+    },
     user(state){
       return state.user;
     },
@@ -57,11 +68,32 @@ export const store = new Vuex.Store({
     },
     afterLoginNav(state){
       return state.afterLoginNav;
-    }
+    },
   },
   actions: {
     clearError({commit}){
       commit('clearError');
+    },
+    signInWithGoogle({commit}){
+      let provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provider).then( (result) => {
+        if(result.additionalUserInfo.isNewUser === false){
+           let newUser = {
+            id: result.user.uid,
+            fullName: result.additionalUserInfo.profile.name,
+          };
+          //this.database.ref('users').push(this.newUser);
+          let ref = firebase.database().ref('scores');
+          ref.push(newUser);
+          commit('setUser',newUser);
+          console.log(newUser);
+        }
+          console.log('I am auth by google');
+        }
+      ).catch(() => {
+          console.log('Google auth error !!');
+        });
+
     },
     signUserUp({commit},payload) {
       commit('setLoading', true);
@@ -76,6 +108,15 @@ export const store = new Vuex.Store({
             fullName: payload.fullName,
             newsletter: payload.newsletter,
         };
+        function writeUserData() {
+          firebase.database().ref('users/' + user.user.id).set({
+            fullName: payload.fullName,
+            newsletter: payload.newsletter,
+            branch: payload.branch,
+            onLevel : 1,
+          });
+          var newPostKey = firebase.database().ref().child('users').push().key;
+        }
         console.log(newUser);
         firebase.auth().signOut();
       })
@@ -118,12 +159,6 @@ export const store = new Vuex.Store({
         console.error('Sign Out Error', error);
       });
     },
-    // loader ({commit}) {
-    //   const l = loader;
-    //   this[l] = !this[l];
-    //   setTimeout(() => (this[l] = false), 3000);
-    //   loader = null
-    // },
     stopLoading({commit}){
       commit('setLoading', false);
     },

@@ -29,13 +29,14 @@
             class="input-group--focused"
             @click:append="show = !show"
           ></v-text-field>
-          <v-flex sm6 offset-sm3>
+          <v-flex sm>
             <v-btn class="primary" @click="onSignIn" :loading="loading" :disabled="loading">
               Log in
               <span slot="loader" class="custom-loader">
                    <v-icon light>cached</v-icon>
                 </span>
             </v-btn>
+            <v-btn class="accent" @click="onGoogleLogIn"><v-icon left>account_box</v-icon>Google Sign in</v-btn>
             <v-btn class="first" @click="clear">clear</v-btn>
           </v-flex>
         </v-form>
@@ -87,8 +88,11 @@
     },
     methods: {
       onSignIn () {
-            this.$store.dispatch('signUserIn', {email: this.email, password: this.password})
+            this.$store.dispatch('signUserIn', {email: this.email, password: this.password});
         },
+      onGoogleLogIn() {
+        this.$store.dispatch('signInWithGoogle');
+      },
       clear () {
         this.$refs.form.reset()
       },
