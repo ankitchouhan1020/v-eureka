@@ -76,8 +76,8 @@ export const store = new Vuex.Store({
             fullName: payload.fullName,
             newsletter: payload.newsletter,
         };
-        commit('setUser',newUser);
-        console.log(newUser)
+        console.log(newUser);
+        firebase.auth().signOut();
       })
         .catch(
           error => {
@@ -112,7 +112,7 @@ export const store = new Vuex.Store({
     },
     onLogout ({commit}) {
       firebase.auth().signOut().then(function() {
-        console.log('Signed Out , In logout actions');
+        console.log('Signed Out,I"m onLogout actions');
         commit('setUser', null);
       }).catch(function(error) {
         console.error('Sign Out Error', error);
