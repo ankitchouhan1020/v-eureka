@@ -1,5 +1,7 @@
 # v-eureka
 
+VISION MANIT Eureka Project.
+
 > A Vue.js project
 
 ## Build Setup
