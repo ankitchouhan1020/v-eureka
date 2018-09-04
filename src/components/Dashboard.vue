@@ -26,15 +26,15 @@
                 height="200px"
               ></v-card>
               <v-text-field wrap
-                            hint="Write your answer here"
                             type="text"
                             v-model="userAnswer"
+                            placeholder="Write your answer here"
               ></v-text-field>
               <v-btn
                 color="primary"
                 @click="nextStep(n)"
               >
-                Continue
+                Submit
               </v-btn>
             </v-stepper-content>
           </v-stepper-items>
@@ -53,7 +53,7 @@
               Wrong Answer
             </v-card-title>
             <v-card-text class="success">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            Oops !! Another Wrong Answer.
             </v-card-text>
             <v-divider></v-divider>
             <v-card-actions class="accent">
@@ -79,7 +79,7 @@
      name: "Dashboard",
      data() {
        return {
-         e1: 1,
+         e1 : Object.assign(1,this.$store.state.user).onLevel,
          steps: 10,
          win: false,
          userAnswer:'',
@@ -87,35 +87,36 @@
          answers: ['123','123','123','123','123','123','123','123','123','123'],
        }
      },
+     computed:{
+       userLevel(){
+         return this.$store.state.user.onLevel;
+       }
+     },
      watch: {
        steps(val) {
          if (this.e1 > val) {
-           this.e1 = val
+           this.e1 = val;
+           this.$store.dispatch('setLevel',val);
          }
        }
      },
      methods: {
        nextStep(n) {
-
          if (this.userAnswer === this.answers[n - 1]) {
            if (n === this.steps) {
+             this.e1 = n + 1;
              this.win = true;
-             alert('Hey !! You Won')
+             alert('Hey !! You Won');
            } else {
-             this.e1 = n + 1
+             this.e1 = n + 1;
            }
+           this.$store.dispatch('setLevel',this.e1);
          }
          else{
-
            this.dialog = true;
          }
          this.userAnswer='';
        },
-
      }
    }
 </script>
-
-<style scoped>
-
-</style>

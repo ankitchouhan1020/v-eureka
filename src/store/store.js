@@ -8,6 +8,7 @@ export const store = new Vuex.Store({
   state: {
     user: null,
     loading:false,
+    loading2: false,
     error:null,
     beforeLoginNav: [
       {title: 'Home', icon: 'home', path: 'home'},
@@ -26,8 +27,6 @@ export const store = new Vuex.Store({
       authDomain: "eureka-5bd43.firebaseapp.com",
       databaseURL: "https://eureka-5bd43.firebaseio.com",
       projectId: "eureka-5bd43",
-      // storageBucket: "eureka-5bd43.appspot.com",
-      // messagingSenderId: "389158541916"
     }),
   },
   mutations: {
@@ -37,8 +36,18 @@ export const store = new Vuex.Store({
     setLoading(state,payload){
       state.loading = payload;
     },
+    setLoading2(state,payload){
+      state.loading2 = payload;
+    },
     setError(state,payload){
       state.error = payload;
+    },
+    setLevel(state,payload){
+       console.log("setLevel Called !!");
+        let ref = firebase.database().ref('users/' + state.user.id );
+        ref.update({
+          "onLevel" : payload,
+        });
     },
     clearError(state){
       state.error = null;
@@ -56,6 +65,9 @@ export const store = new Vuex.Store({
     },
     loading(state){
       return state.loading;
+    },
+    loading2(state){
+      return state.loading2;
     },
     loader(state){
       return state.loader;
@@ -75,49 +87,60 @@ export const store = new Vuex.Store({
       commit('clearError');
     },
     signInWithGoogle({commit}){
-      let provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithPopup(provider).then( (result) => {
-        if(result.additionalUserInfo.isNewUser === false){
-           let newUser = {
-            id: result.user.uid,
-            fullName: result.additionalUserInfo.profile.name,
-          };
-          //this.database.ref('users').push(this.newUser);
-          let ref = firebase.database().ref('scores');
-          ref.push(newUser);
-          commit('setUser',newUser);
-          console.log(newUser);
-        }
-          console.log('I am auth by google');
-        }
-      ).catch(() => {
-          console.log('Google auth error !!');
+        commit('setLoading2', true);
+        let provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(provider).then((result) => {
+          let uuid = result.user.uid;
+          let userRef = firebase.database().ref('users/' + uuid );
+            if (result.additionalUserInfo.isNewUser === true) {
+              let newUser = {
+                id: uuid,
+                fullName: result.additionalUserInfo.profile.name,
+                onLevel: 1,
+                college: null,
+                branch: null,
+              };
+              userRef.set(newUser);
+              console.log("New user I am with uuid: " + uuid);
+              commit('setUser', newUser);
+            }
+            else{
+              userRef.on("value",function (snapshot) {
+                let user = snapshot.val();
+                let oldUser = {
+                    id: user.id ,
+                    fullName: user.fullName,
+                    onLevel: user.onLevel,
+                    college: user.college,
+                    branch: user.branch,
+                  };
+                console.log("Old user it is");
+                commit('setUser', oldUser);
+              });
+            }
+            commit('setLoading2', false);
+            console.log('Auth by google successful.');
+          }
+        ).catch(() => {
+          let errorCode = error.code;
+          if (errorCode === 'auth/account-exists-with-different-credential') {
+            alert('You have already signed up with a different auth provider for that email.');
+          }
         });
-
-    },
+      },
     signUserUp({commit},payload) {
       commit('setLoading', true);
       commit('clearError');
       firebase.auth().createUserWithEmailAndPassword(payload.email,payload.password).then(
       user => {
         commit('setLoading',false);
-        const newUser = {
+        firebase.database().ref('users/' + user.user.uid).set({
             id : user.user.uid,
+            fullName: payload.fullName,
             onLevel : 1,
             branch: payload.branch,
-            fullName: payload.fullName,
             newsletter: payload.newsletter,
-        };
-        function writeUserData() {
-          firebase.database().ref('users/' + user.user.id).set({
-            fullName: payload.fullName,
-            newsletter: payload.newsletter,
-            branch: payload.branch,
-            onLevel : 1,
           });
-          var newPostKey = firebase.database().ref().child('users').push().key;
-        }
-        console.log(newUser);
         firebase.auth().signOut();
       })
         .catch(
@@ -128,19 +151,21 @@ export const store = new Vuex.Store({
           }
         )
       },
-    signUserIn ({commit}, payload) {
+    signUserIn ({commit}, payload){
       commit('setLoading', true);
       commit('clearError');
       firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
         .then(
           user => {
             commit('setLoading',false);
-            const newUser = {
-              id: user.user.uid,
-              fullName: payload.name,
-            };
-            commit('setUser', newUser);
-            console.log(newUser)
+            firebase.database().ref('users/' + user.user.uid ).on("value",function(snapshot){
+              let newUser = snapshot.val();
+              commit('setUser', newUser);
+              // console.log(newUser.onLevel);
+              //commit('setLevel',newUser.onLevel);
+            },function(error){
+              console.log("Error: " + error.code);
+            });
           }
         )
         .catch(
@@ -153,7 +178,7 @@ export const store = new Vuex.Store({
     },
     onLogout ({commit}) {
       firebase.auth().signOut().then(function() {
-        console.log('Signed Out,I"m onLogout actions');
+        console.log('Signed Out Action');
         commit('setUser', null);
       }).catch(function(error) {
         console.error('Sign Out Error', error);
@@ -164,6 +189,9 @@ export const store = new Vuex.Store({
     },
     clearUser({commit}){
       commit('setUser', null);
+    },
+    setLevel({commit},payload){
+      commit('setLevel',payload);
     }
   }
 });

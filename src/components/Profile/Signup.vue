@@ -39,7 +39,7 @@
             ></v-select>
             <v-checkbox
               v-model="checkbox"
-              label="Do you want to receive email about our future events?"
+              label="Do you want to receive emails about our future events?"
             ></v-checkbox>
             <v-flex sm6 offset-sm3>
               <v-btn class="primary" @click="onSignUp" :loading="loading" :disabled="loading">
@@ -107,7 +107,7 @@
     watch: {
       user (value) {
         if (value !== null && value !== undefined) {
-          console.log('Logout ho gya ,wapas se login kr ab !! (signup.vue)')
+          console.log('Logout ho gya ,wapas se login kr ab !! (signup.vue)');
           this.clearUser();
           this.$router.push('/signin');
         }

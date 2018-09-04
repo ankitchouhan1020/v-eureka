@@ -36,7 +36,10 @@
                    <v-icon light>cached</v-icon>
                 </span>
             </v-btn>
-            <v-btn class="accent" @click="onGoogleLogIn"><v-icon left>account_box</v-icon>Google Sign in</v-btn>
+            <v-btn class="accent" @click="onGoogleLogIn" @click.native="loader = 'loading2'" :loading="loading2" :disabled="loading2"><v-icon left>account_box</v-icon>
+              Signin with Google
+              <span slot="loader">Loading...</span>
+            </v-btn>
             <v-btn class="first" @click="clear">clear</v-btn>
           </v-flex>
         </v-form>
@@ -72,6 +75,9 @@
       loading() {
         return this.$store.getters.loading;
       },
+      loading2() {
+        return this.$store.getters.loading2;
+      },
       error() {
         return this.$store.getters.error;
       },
@@ -84,6 +90,12 @@
         if (value !== null && value !== undefined) {
           this.$router.push('/dashboard')
         }
+      },
+      loader () {
+        const l = this.loader;
+        this[l] = !this[l];
+        setTimeout(() => (this[l] = false), 3000);
+        this.loader = null
       }
     },
     methods: {
@@ -94,7 +106,7 @@
         this.$store.dispatch('signInWithGoogle');
       },
       clear () {
-        this.$refs.form.reset()
+        this.$refs.form.reset();
       },
       onDismissed () {
         this.$store.dispatch('clearError');
