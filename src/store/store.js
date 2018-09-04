@@ -97,8 +97,7 @@ export const store = new Vuex.Store({
                 id: uuid,
                 fullName: result.additionalUserInfo.profile.name,
                 onLevel: 1,
-                college: null,
-                branch: null,
+                branch: 'CSE',
               };
               userRef.set(newUser);
               console.log("New user I am with uuid: " + uuid);
@@ -111,7 +110,6 @@ export const store = new Vuex.Store({
                     id: user.id ,
                     fullName: user.fullName,
                     onLevel: user.onLevel,
-                    college: user.college,
                     branch: user.branch,
                   };
                 console.log("Old user it is");
@@ -139,7 +137,7 @@ export const store = new Vuex.Store({
             fullName: payload.fullName,
             onLevel : 1,
             branch: payload.branch,
-            newsletter: payload.newsletter,
+            //newsletter: payload.newsletter,
           });
         firebase.auth().signOut();
       })

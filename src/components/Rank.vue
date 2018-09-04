@@ -17,7 +17,7 @@
           <v-data-table
             class="primary"
             :headers="headers"
-            :items="users"
+            :items="fireUsers"
             :search="search"
             :pagination.sync="pagination"
             hide-actions
@@ -27,9 +27,9 @@
           >
             <template slot="items" slot-scope="props" class="sm12">
               <td >{{ props.item.rank}}</td>
-              <td class="text-xs-center">{{ props.item.name }}</td>
+              <td class="text-xs-center">{{ props.item.fullName }}</td>
               <td class="text-xs-center">{{ props.item.branch }}</td>
-              <td class="text-xs-center">{{ props.item.level }}</td>
+              <td class="text-xs-center">{{ props.item.onLevel }}</td>
             </template>
             <v-alert slot="no-results" :value="true" color="error" icon="warning">
               Your search for "{{ search }}" found no results.
@@ -44,6 +44,7 @@
 </template>
 
 <script>
+  import firebase from 'firebase'
 export default {
     data () {
       return {
@@ -55,95 +56,110 @@ export default {
             text: 'Rank',
             align: 'left',
             sortable: true,
-            value: 'rank',
+            value: '1',
             class: 'primary secondary--text'
           },
-          { text: 'Username',sortable: false,align: 'center', value: 'name' ,class: 'primary secondary--text'},
+          { text: 'Username',sortable: false,align: 'center', value: 'fullName' ,class: 'primary secondary--text'},
           { text: 'Branch',sortable: false,align: 'center', value: 'branch',class: 'primary secondary--text' },
-          { text: 'Level',align: 'center', value: 'level',class: 'primary secondary--text' },
+          { text: 'Level',align: 'center', value: 'onLevel',class: 'primary secondary--text' },
         ],
-        users: [
-          {
-            value: false,
-            name: 'Ankit',
-            rank: 1,
-            level: 12,
-            branch: 'CSE',
-          },
-          {
-            value: false,
-            name: 'Ankit',
-            rank: 1,
-            level: 12,
-            branch: 'CSE'
-          },
-          {
-            value: false,
-            name: 'Anand',
-            rank: 4,
-            level: 1,
-            branch: 'ME'
-          },
-          {
-            value: false,
-            name: 'Appu',
-            rank: 10,
-            level: 2,
-            branch: 'ECE'
-          },
-          {
-            value: false,
-            name: 'Appu',
-            rank: 10,
-            level: 2,
-            branch: 'ECE'
-          },
-          {
-            value: false,
-            name: 'Appu',
-            rank: 10,
-            level: 2,
-            branch: 'ECE'
-          },
-          {
-            value: false,
-            name: 'Appu',
-            rank: 10,
-            level: 2,
-            branch: 'ECE'
-          },
-          {
-            value: false,
-            name: 'Appu',
-            rank: 10,
-            level: 2,
-            branch: 'ECE'
-          },
-          {
-            value: false,
-            name: 'Appu',
-            rank: 10,
-            level: 2,
-            branch: 'ECE'
-          },
-          {
-            value: false,
-            name: 'Appu',
-            rank: 10,
-            level: 2,
-            branch: 'ECE'
-          },
-        ]
+        fireUsers : [],
+        // users: [
+        //   {
+        //     value: false,
+        //     name: 'Ankit',
+        //     rank: 1,
+        //     level: 12,
+        //     branch: 'CSE',
+        //   },
+        //   {
+        //     value: false,
+        //     name: 'Ankit',
+        //     rank: 1,
+        //     level: 12,
+        //     branch: 'CSE'
+        //   },
+        //   {
+        //     value: false,
+        //     name: 'Anand',
+        //     rank: 4,
+        //     level: 1,
+        //     branch: 'ME'
+        //   },
+        //   {
+        //     value: false,
+        //     name: 'Appu',
+        //     rank: 10,
+        //     level: 2,
+        //     branch: 'ECE'
+        //   },
+        //   {
+        //     value: false,
+        //     name: 'Appu',
+        //     rank: 10,
+        //     level: 2,
+        //     branch: 'ECE'
+        //   },
+        //   {
+        //     value: false,
+        //     name: 'Appu',
+        //     rank: 10,
+        //     level: 2,
+        //     branch: 'ECE'
+        //   },
+        //   {
+        //     value: false,
+        //     name: 'Appu',
+        //     rank: 10,
+        //     level: 2,
+        //     branch: 'ECE'
+        //   },
+        //   {
+        //     value: false,
+        //     name: 'Appu',
+        //     rank: 10,
+        //     level: 2,
+        //     branch: 'ECE'
+        //   },
+        //   {
+        //     value: false,
+        //     name: 'Appu',
+        //     rank: 10,
+        //     level: 2,
+        //     branch: 'ECE'
+        //   },
+        //   {
+        //     value: false,
+        //     name: 'Appu',
+        //     rank: 10,
+        //     level: 2,
+        //     branch: 'ECE'
+        //   },
+        // ]
       }
     },
     computed: {
       pages () {
         if (this.pagination.rowsPerPage == null ||
           this.pagination.totalItems == null
-        ) return 0
+        ) return 0;
 
         return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
+      },
+    },
+    methods: {
+      getUserData() {
+        let userArray=[];
+        firebase.database().ref('users').on("value",function (snapshot){
+          snapshot.forEach(function (childSnap) {
+            userArray.push(childSnap.val());
+          });
+        });
+        return userArray;
       }
+    },
+    mounted() {
+        this.fireUsers = this.getUserData();
     }
   }
 </script>
