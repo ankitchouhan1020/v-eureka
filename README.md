@@ -1,5 +1,5 @@
 # Eureka
-
+![Eureka](./src/assets/eureka.jpg)
 Knowledge - knowledge is not power, It is only potential. Power is all about action. Surely you know the revolutions that changed this world. But do you know who were they that brought about this change… in the words of Steve Jobs "they were the crazy ones, the misfits, the rebels, the troublemakers, the round pegs in the square holes, the ones who saw things differently. They were not fond of rules and they had no respect for the status quo. You can quote them, disagree with them, glorify or vilify them. About the only thing you can't do is ignore them. Because they change things. They push the human race forward. And while some may see them as the crazy ones, we see genius. They are the visionaries. People who are crazy enough to think they can change the world, are the ones who do."
 
 Do you know them? If yes, then come and brag. This is the time to flaunt your knowledge. 

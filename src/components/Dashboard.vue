@@ -74,7 +74,7 @@
 </template>
 
 <script>
-
+import firebase from 'firebase'
    export default {
      name: "Dashboard",
      data() {
@@ -82,9 +82,9 @@
          e1 : Object.assign(1,this.$store.state.user).onLevel,
          steps: 10,
          win: false,
-         userAnswer:'',
+         userAnswer: '',
          dialog: false,
-         answers: ['123','123','123','123','123','123','123','123','123','123'],
+         //answers: ['123','123','123','123','123','123','123','123','123','123'],
        }
      },
      computed:{
@@ -101,8 +101,18 @@
        }
      },
      methods: {
+       answers(index){
+         var ans = 5;
+         let ref = firebase.database().ref('scores/' + 5);
+         ref.once('value',(snapshot) => {
+          this.ans = snapshot.val();
+          console.log(this.ans);
+         });
+         return ans;
+       },
        nextStep(n) {
-         if (this.userAnswer === this.answers[n - 1]) {
+         console.log((this.answers(n-1)));
+         if (this.userAnswer == 1) {
            if (n === this.steps) {
              this.e1 = n + 1;
              this.win = true;
