@@ -1,23 +1,34 @@
 <template>
   <v-container>
     <v-content>
-      <h2 class="tool-title text-xs-center ">WHAT IS EUREKA ?</h2>
+      <h2 class="tool-title text-xs-center ">What is Code Kriegers ?</h2>
       <v-subheader class="justify-center">As if you did not know</v-subheader>
       <blockquote class="tile-title">
-        We bring to you this year, the interstellar edition of your favourite cause of hair loss with some mighty celebrity endorsements.<br><br>
-
-        "I have a dream that one day every level shall be cracked, the rough places will be made plain, and the crooked places will be made straight, and the eternal glory of the Hall of Fame shall be revealed, and all flesh shall see it together" - Martin Luther King, shortly before being incepted by Leo diCaprio, who then got stuck in a level inside a level inside a level inside a (you know where this is going).<br><br>
-
-        "At the stroke of the midnight hour, when only a part of the world sleeps, we will awake to life and and the next level. A moment comes, which comes but rarely in history, when we step out from the old to the new, when the Hall of Fame is breached, and when the mind of a Klueless player, long suppressed, finds utterance." - Jawaharlal Nehru.<br><br>
-
-        "It is perilous to study too deeply the arts of any level, for good or for ill. But such falls and betrayals, alas, have happened before."<br>
-        Elrond, Lord of Rivendell referring to a particularly nasty Klueless level.<br><br>
-
-        "Hey, the 'iiiiiii' in that font, when magnified looks like a line of zombies going left. Is that a clue? Am I on the right track?" - Random person on the blog.<br><br>
-
-        "The person who made this level was definitely stoned" - Every Klueless player on every level.<br><br>
-
-        "ALL GLORY TO THE HYPNOTOAD" - Team Eureka<br><br>
+        Coding is not only about making complex code, rather it's an art. Code Kriegers was started
+        in year 2014 to make coding a little enjoyable. It is a technical and fun event with 3 offline
+        and 1 online round. The participants have to participate in a team of two. The winners of
+        online round are given direct entry to the second round of offline event.
+        <br><br>
+        Here are the further details about each round
+        <br><br>
+        <h4>DAY 1: Round 1</h4>
+        The first round of Code Kriegers is an app based code hunt i.e. the participants have to
+        decode the instructions in C language issued through the ‘Code Kriegers Android App’. They
+        have to complete the hunt and reach the final destination in order to complete the first
+        round. Top 30 participant i.e. 15 teams are selected for the next round.
+        <br><br>
+        <h4>DAY 2: Round 2</h4>
+        In the second round of Code Kriegers, 18 teams participate, 15 selected from the first round
+        and the remaining three are the winners of online round. The second round is a kind of
+        rapid fire round where C snippets are displayed and participants have to answer their
+        output or find the error within the code in a fixed time period. Ten teams proceed through
+        this round.
+        <br><br>
+        <h4>DAY 3: Round 3</h4>
+        In the third round of Code Kriegers, the participants have to solve five coding problems in
+        the time duration of 1 hour. The participants are provided with problem statement & coding
+        environment. Teams on the basis of number of problems solved are declared winner.
+        <br><br>
       </blockquote>
     </v-content>
   </v-container>

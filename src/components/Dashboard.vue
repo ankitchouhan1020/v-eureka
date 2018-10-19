@@ -53,7 +53,7 @@
               Wrong Answer
             </v-card-title>
             <v-card-text class="success">
-            Oops !! Another Wrong Answer.
+            Oops !! Wrong Answer.
             </v-card-text>
             <v-divider></v-divider>
             <v-card-actions class="accent">

@@ -30,17 +30,17 @@
               class="input-group--focused"
               @click:append="show = !show"
             ></v-text-field>
-            <v-select
-              v-model="select"
-              :items="braches"
-              :rules="[v => !!v || 'Branch is required']"
-              label="Branch"
-              required
-            ></v-select>
-            <v-checkbox
-              v-model="checkbox"
-              label="Do you want to receive emails about our future events?"
-            ></v-checkbox>
+            <!--<v-select-->
+              <!--v-model="select"-->
+              <!--:items="braches"-->
+              <!--:rules="[v => !!v || 'Branch is required']"-->
+              <!--label="Branch"-->
+              <!--required-->
+            <!--&gt;</v-select>-->
+            <!--<v-checkbox-->
+              <!--v-model="checkbox"-->
+              <!--label="Do you want to receive emails about our future events?"-->
+            <!--&gt;</v-checkbox>-->
             <v-flex sm6 offset-sm3>
               <v-btn class="primary" @click="onSignUp" :loading="loading" :disabled="loading">
                 Register
@@ -107,7 +107,7 @@
     watch: {
       user (value) {
         if (value !== null && value !== undefined) {
-          console.log('Logout ho gya ,wapas se login kr ab !! (signup.vue)');
+          console.log('Logout ho gya ,wapas se login kr ab !!');
           this.clearUser();
           this.$router.push('/signin');
         }
