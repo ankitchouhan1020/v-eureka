@@ -60,7 +60,7 @@ export const store = new Vuex.Store({
       let prevDay = state.user.myDay;
       let currentDay = payload;
       let ref = firebase.database().ref('users/' + state.user.id );
-      if(currentDay === prevDay){
+      if(currentDay >= prevDay){
           ref.update({
             "points" : prevPoint + 10,
             "lastSubmit": dateTime,
