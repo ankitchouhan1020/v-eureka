@@ -8,7 +8,7 @@
             :key="`${n}-step`"
             :step="n"
           >
-            Step {{ n }}
+            Day {{ n }}
           </v-stepper-step>
           <v-divider
             v-if="n !== steps"
@@ -44,7 +44,6 @@
         <v-dialog
           v-model="dialog"
           width="500"
-
         >
           <v-card>
             <v-card-title
@@ -80,7 +79,7 @@ import firebase from 'firebase'
      data() {
        return {
          e1 : Object.assign(1,this.$store.state.user).onLevel,
-         steps: 10,
+         steps: 5,
          win: false,
          userAnswer: '',
          dialog: false,
@@ -101,18 +100,23 @@ import firebase from 'firebase'
        }
      },
      methods: {
-       answers(index){
-         var ans = 5;
-         let ref = firebase.database().ref('scores/' + 5);
-         ref.once('value',(snapshot) => {
-          this.ans = snapshot.val();
-          console.log(this.ans);
+      async answers(index){
+        let ans = 101;
+         let ref = firebase.database().ref('scores/' + 1);
+         let promise = ref.once('value',(snapshot) =>{
+           ans = snapshot.val();
+           console.log('In answers functions ' + ans );
+           return ans;
          });
-         return ans;
+         console.log('After promises ' + ans);
+         let result = await promise;
+         return result;
        },
+
        nextStep(n) {
-         console.log((this.answers(n-1)));
-         if (this.userAnswer == 1) {
+         console.log(this.answers(n));
+         if (this.userAnswer == 123) {
+
            if (n === this.steps) {
              this.e1 = n + 1;
              this.win = true;

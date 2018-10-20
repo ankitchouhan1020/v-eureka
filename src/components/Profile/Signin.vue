@@ -88,7 +88,7 @@
     watch: {
       user(value) {
         if (value !== null && value !== undefined) {
-          this.$router.push('/dashboard')
+          this.$router.push('/Questions')
         }
       },
       loader () {

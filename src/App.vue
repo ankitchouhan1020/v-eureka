@@ -30,7 +30,7 @@
     </v-navigation-drawer>
     <v-toolbar app fixed clipped-left :clipped-left="$vuetify.breakpoint.lgAndUp" class="secondary">
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title class="tool-title">Eureka</v-toolbar-title>
+      <v-toolbar-title class="tool-title">Code Kriegers</v-toolbar-title>
       <v-spacer></v-spacer>
 
       <v-btn class="primary" v-show="user" @click="onLogout"><v-icon left>exit_to_app</v-icon>Logout</v-btn>

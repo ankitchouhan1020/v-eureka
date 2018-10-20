@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
+import Questions from '@/components/Question'
 //import Loader from '@/components/Loader'
 const Dashboard = () => import('@/components/Dashboard');
 const Forum = () => import('@/components/Forum');
@@ -22,6 +23,12 @@ export default new Router({
       path: '/dashboard',
       name: 'Dashboard',
       component: Dashboard,
+      beforeEnter: AuthGuard
+    },
+    {
+      path: '/Questions',
+      name: 'Questions',
+      component: Questions,
       beforeEnter: AuthGuard
     },
     {
@@ -52,11 +59,11 @@ export default new Router({
       name: 'Signup',
       component: Signup
     },
-    {
+/*    {
       path: '/',
       name: 'Home',
       component: Home
-    },
+    },*/
   ],
   mode: 'history',
 })

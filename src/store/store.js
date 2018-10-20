@@ -16,10 +16,11 @@ export const store = new Vuex.Store({
       {title: 'Sign in', icon: 'lock_open', path: 'signin'},
     ],
     afterLoginNav: [
-      {title: 'Dashboard', icon: 'dashboard', path: 'dashboard'},
+      // {title: 'Dashboard', icon: 'dashboard', path: 'dashboard'},
+      {title: 'Questions', icon: 'dashboard', path: 'questions'},
       {title: 'Hall Of Fame', icon: 'person_pin', path: 'rank'},
-      {title: 'Rules', icon: 'layers', path: 'rules'},
-      {title: 'Forum', icon: 'forum', path: 'forum'},
+      {title: 'FAQ', icon: 'forum', path: 'forum'},
+      {title: 'Contact Us', icon: 'layers', path: 'rules'},
     ],
     loader: null,
     config: firebase.initializeApp({
@@ -48,6 +49,57 @@ export const store = new Vuex.Store({
         ref.update({
           "onLevel" : payload,
         });
+    },
+    incrementPoint(state){
+      let prevPoint,prevDay,currentDay;
+      let today = new Date();
+      let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+      let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      let dateTime = date+' '+time;
+
+      function resolveAfter2Seconds() {
+        return new Promise(resolve => {
+          let ref = firebase.database().ref('users/' + state.user.id );
+          ref.on('value',function (snapshot){
+              let prevPoint = snapshot.val().points;
+              let prevDay = snapshot.val().myDay;
+            },
+            resolve({'prevPoint':prevPoint,'prevDay':prevDay}));
+        });
+      }
+      function resolveAfter1Seconds() {
+        return new Promise(resolve => {
+          let ref2 = firebase.database().ref('day/');
+          ref2.on('value', function (snapshot) {
+              currentDay = snapshot.val();
+              console.log(currentDay);
+            },
+            resolve(currentDay));
+        });
+      }
+
+      async function asyncCall() {
+        console.log('calling');
+        let currentDay = await resolveAfter1Seconds();
+        let prevObj = await resolveAfter2Seconds();
+        console.log(currentDay);
+        console.log(prevObj);
+        //console.log(currentDay,PrevDay);
+        if(currentDay === prevObj.prevDay){
+          ref.update({
+            "points" : prevPoint + 10,
+            "lastSubmit": dateTime,
+            "myDay": prevDay+1,
+          });
+          console.log("Points Incremented !!");
+        }
+        else{
+          console.log('Already Submitted Answer At Previous Time !!')
+        }
+      }
+
+      asyncCall();
+
     },
     clearError(state){
       state.error = null;
@@ -96,8 +148,9 @@ export const store = new Vuex.Store({
               let newUser = {
                 id: uuid,
                 fullName: result.additionalUserInfo.profile.name,
-                onLevel: 1,
-                branch: 'CSE',
+                points: 0,
+                myDay: 1,
+                lastSubmit: null,
               };
               userRef.set(newUser);
               console.log("New user I am with uuid: " + uuid);
@@ -109,8 +162,9 @@ export const store = new Vuex.Store({
                 let oldUser = {
                     id: user.id ,
                     fullName: user.fullName,
-                    onLevel: user.onLevel,
-                    branch: user.branch,
+                    points: user.points,
+                    myDay: user.myDay,
+                    lastSubmit: user.lastSubmit,
                   };
                 console.log("Old user it is");
                 commit('setUser', oldUser);
@@ -136,7 +190,9 @@ export const store = new Vuex.Store({
             id : user.user.uid,
             fullName: payload.fullName,
             onLevel : 1,
-            branch: payload.branch,
+            points: 0,
+          myDay: 1,
+          lastSubmit: null,
             //newsletter: payload.newsletter,
           });
         firebase.auth().signOut();
@@ -190,6 +246,9 @@ export const store = new Vuex.Store({
     },
     setLevel({commit},payload){
       commit('setLevel',payload);
+    },
+    incrementPoint({commit}){
+      commit('incrementPoint');
     }
   }
 });

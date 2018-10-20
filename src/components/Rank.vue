@@ -2,43 +2,44 @@
   <v-container>
       <v-content>
         <h1 class="text-xs-center ma-2 tool-title">LEADERBOARD</h1>
-        <v-subheader class="justify-center tile-title">Be a part of the hall of fame. Join the hunt.</v-subheader>
-        <v-card class="primary--text tile-title">
-          <v-card-title>
-            Hall Of Fame
-            <v-spacer></v-spacer>
-            <v-text-field
-              v-model="search"
-              append-icon="search"
-              label="Search"
-              single-line
-            ></v-text-field>
-          </v-card-title>
-          <v-data-table
-            class="primary"
-            :headers="headers"
-            :items="fireUsers"
-            :search="search"
-            :pagination.sync="pagination"
-            hide-actions
-            prev-icon="mdi-menu-left"
-            next-icon="mdi-menu-right"
-            sort-icon="mdi-menu-down"
-          >
-            <template slot="items" slot-scope="props" class="sm12">
-              <td >{{ props.item.rank}}</td>
-              <td class="text-xs-center">{{ props.item.fullName }}</td>
-              <td class="text-xs-center">{{ props.item.branch }}</td>
-              <td class="text-xs-center">{{ props.item.onLevel }}</td>
-            </template>
-            <v-alert slot="no-results" :value="true" color="error" icon="warning">
-              Your search for "{{ search }}" found no results.
-            </v-alert>
-          </v-data-table>
-          <div class="text-xs-center pt-2">
-            <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
-          </div>
-        </v-card>
+        <v-subheader class="justify-center tile-title">LeaderBoard will be updated after compitition.</v-subheader>
+        <!--<v-card class="primary&#45;&#45;text tile-title">-->
+          <!--<v-card-title>-->
+            <!--Hall Of Fame-->
+            <!--<v-spacer></v-spacer>-->
+            <!--<v-text-field-->
+              <!--v-model="search"-->
+              <!--append-icon="search"-->
+              <!--label="Search"-->
+              <!--single-line-->
+            <!--&gt;</v-text-field>-->
+          <!--</v-card-title>-->
+          <!--<v-data-table-->
+            <!--class="primary"-->
+            <!--:headers="headers"-->
+            <!--:items="fireUsers"-->
+            <!--:search="search"-->
+            <!--:pagination.sync="pagination"-->
+            <!--hide-actions-->
+            <!--prev-icon="mdi-menu-left"-->
+            <!--next-icon="mdi-menu-right"-->
+            <!--sort-icon="mdi-menu-down"-->
+          <!--&gt;-->
+            <!--<template slot="items" slot-scope="props" class="sm12">-->
+              <!--<td >{{ props.item.rank}}</td>-->
+              <!--<td class="text-xs-center">{{ props.item.fullName }}</td>-->
+              <!--<td class="text-xs-center">{{ props.item.branch }}</td>-->
+              <!--<td class="text-xs-center">{{ props.item.onLevel }}</td>-->
+            <!--</template>-->
+            <!--<v-alert slot="no-results" :value="true" color="error" icon="warning">-->
+              <!--Your search for "{{ search }}" found no results.-->
+            <!--</v-alert>-->
+          <!--</v-data-table>-->
+          <!--<div class="text-xs-center pt-2">-->
+            <!--<v-pagination v-model="pagination.page" :length="pages"></v-pagination>-->
+          <!--</div>-->
+        <!--</v-card>-->
+
       </v-content>
     </v-container>
 </template>
