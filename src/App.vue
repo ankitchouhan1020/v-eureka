@@ -43,7 +43,7 @@
     </main>
 
     <v-footer class="success" app fixed>
-      <span>&copy; 2017</span>
+      <span>Vision MANIT &copy; 2018</span>
     </v-footer>
   </v-app>
 </template>
