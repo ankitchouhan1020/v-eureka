@@ -7,7 +7,7 @@
           fluid
           grid-list-md text-xs-center
         >
-          <v-layout row wrap>
+          <v-layout align-space-between justify-center column fill-height>
             <v-flex xs4>
               <v-card color="blue-grey darken-2" class="white--text">
                 <v-card-title primary-title>
@@ -39,15 +39,13 @@
               <v-card color="blue-grey darken-2" class="white--text">
                 <v-card-title primary-title>
                   <div class="headline"><i class="fa fa-phone"></i> Whatsapp No.</div>
-                </v-card-title>
+
                 <v-divider light></v-divider>
-                <v-card-action>
                   <div>
                   <a href="tel:+919455525935">+91-9455525935</a> ,
                   <a href="tel:+918989859127">+918989859127</a>
                   </div>
-                  <br>
-                </v-card-action>
+                </v-card-title>
               </v-card>
             </v-flex>
           </v-layout>
