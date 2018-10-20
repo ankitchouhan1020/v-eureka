@@ -50,42 +50,17 @@ export const store = new Vuex.Store({
           "onLevel" : payload,
         });
     },
-    incrementPoint(state){
-      let prevPoint,prevDay,currentDay;
+    incrementPoint(state,payload){
       let today = new Date();
       let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
       let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
       let dateTime = date+' '+time;
 
-      function resolveAfter2Seconds() {
-        return new Promise(resolve => {
-          let ref = firebase.database().ref('users/' + state.user.id );
-          ref.on('value',function (snapshot){
-              let prevPoint = snapshot.val().points;
-              let prevDay = snapshot.val().myDay;
-            },
-            resolve({'prevPoint':prevPoint,'prevDay':prevDay}));
-        });
-      }
-      function resolveAfter1Seconds() {
-        return new Promise(resolve => {
-          let ref2 = firebase.database().ref('day/');
-          ref2.on('value', function (snapshot) {
-              currentDay = snapshot.val();
-              console.log(currentDay);
-            },
-            resolve(currentDay));
-        });
-      }
-
-      async function asyncCall() {
-        console.log('calling');
-        let currentDay = await resolveAfter1Seconds();
-        let prevObj = await resolveAfter2Seconds();
-        console.log(currentDay);
-        console.log(prevObj);
-        //console.log(currentDay,PrevDay);
-        if(currentDay === prevObj.prevDay){
+      let prevPoint = state.user.points;
+      let prevDay = state.user.myDay;
+      let currentDay = payload;
+      let ref = firebase.database().ref('users/' + state.user.id );
+      if(currentDay === prevDay){
           ref.update({
             "points" : prevPoint + 10,
             "lastSubmit": dateTime,
@@ -96,10 +71,6 @@ export const store = new Vuex.Store({
         else{
           console.log('Already Submitted Answer At Previous Time !!')
         }
-      }
-
-      asyncCall();
-
     },
     clearError(state){
       state.error = null;
@@ -247,8 +218,8 @@ export const store = new Vuex.Store({
     setLevel({commit},payload){
       commit('setLevel',payload);
     },
-    incrementPoint({commit}){
-      commit('incrementPoint');
+    incrementPoint({commit},payload){
+      commit('incrementPoint',payload);
     }
   }
 });
