@@ -36,7 +36,7 @@
                    <v-icon light>cached</v-icon>
                 </span>
             </v-btn>
-            <v-btn class="accent" @click="onGoogleLogIn" @click.native="loader = 'loading2'" :loading="loading2" :disabled="loading2"><v-icon left>account_box</v-icon>
+            <v-btn class="red" @click="onGoogleLogIn" @click.native="loader = 'loading2'" :loading="loading2" :disabled="loading2"><v-icon left>account_box</v-icon>
               Signin with Google
               <span slot="loader">Loading...</span>
             </v-btn>

@@ -18,7 +18,7 @@ export const store = new Vuex.Store({
     afterLoginNav: [
       // {title: 'Dashboard', icon: 'dashboard', path: 'dashboard'},
       {title: 'Questions', icon: 'dashboard', path: 'questions'},
-      {title: 'Hall Of Fame', icon: 'person_pin', path: 'rank'},
+      // {title: 'Hall Of Fame', icon: 'person_pin', path: 'rank'},
       {title: 'FAQ', icon: 'forum', path: 'forum'},
       {title: 'Contact Us', icon: 'layers', path: 'rules'},
     ],
@@ -44,7 +44,7 @@ export const store = new Vuex.Store({
       state.error = payload;
     },
     setLevel(state,payload){
-       console.log("setLevel Called !!");
+       //console.log("setLevel Called !!");
         let ref = firebase.database().ref('users/' + state.user.id );
         ref.update({
           "onLevel" : payload,
@@ -58,18 +58,19 @@ export const store = new Vuex.Store({
 
       let prevPoint = state.user.points;
       let prevDay = state.user.myDay;
+      let flag = state.user.flag;
       let currentDay = payload;
-      let ref = firebase.database().ref('users/' + state.user.id );
-      if(currentDay >= prevDay){
-          ref.update({
+      let ref1 = firebase.database().ref('users/' + state.user.id );
+      let testFlag = flag[currentDay];
+      if(!testFlag.status){
+          ref1.update({
             "points" : prevPoint + 10,
-            "lastSubmit": dateTime,
-            "myDay": prevDay+1,
           });
-          console.log("Points Incremented !!");
+         let flagRef = ref1.child("flag").child(currentDay).update({"status": true,"lastSubmit": dateTime});
+          //console.log("Points Incremented !!");
         }
         else{
-          console.log('Already Submitted Answer At Previous Time !!')
+         // console.log('Already Submitted Answer At Previous Time !!')
         }
     },
     clearError(state){
@@ -120,24 +121,29 @@ export const store = new Vuex.Store({
                 id: uuid,
                 fullName: result.additionalUserInfo.profile.name,
                 points: 0,
-                myDay: 1,
-                lastSubmit: null,
+                flag:{
+                  '1':{'status': false,'lastSubmit': null},
+                  '2':{'status': false,'lastSubmit': null},
+                  '3':{'status': false,'lastSubmit': null},
+                  '4':{'status': false,'lastSubmit': null},
+                  '5':{'status': false,'lastSubmit': null},
+                },
               };
               userRef.set(newUser);
-              console.log("New user I am with uuid: " + uuid);
+              //console.log("New user I am with uuid: " + uuid);
               commit('setUser', newUser);
             }
             else{
               userRef.on("value",function (snapshot) {
                 let user = snapshot.val();
+                //console.log(user);
                 let oldUser = {
                     id: user.id ,
                     fullName: user.fullName,
                     points: user.points,
-                    myDay: user.myDay,
-                    lastSubmit: user.lastSubmit,
-                  };
-                console.log("Old user it is");
+                    flag: user.flag,
+                };
+                //console.log("Old user it is");
                 commit('setUser', oldUser);
               });
             }
@@ -160,11 +166,14 @@ export const store = new Vuex.Store({
         firebase.database().ref('users/' + user.user.uid).set({
             id : user.user.uid,
             fullName: payload.fullName,
-            onLevel : 1,
             points: 0,
-          myDay: 1,
-          lastSubmit: null,
-            //newsletter: payload.newsletter,
+          flag:{
+            '1':{'status': false,'lastSubmit': null},
+            '2':{'status': false,'lastSubmit': null},
+            '3':{'status': false,'lastSubmit': null},
+            '4':{'status': false,'lastSubmit': null},
+            '5':{'status': false,'lastSubmit': null},
+          },
           });
         firebase.auth().signOut();
       })
@@ -189,7 +198,7 @@ export const store = new Vuex.Store({
               // console.log(newUser.onLevel);
               //commit('setLevel',newUser.onLevel);
             },function(error){
-              console.log("Error: " + error.code);
+              //console.log("Error: " + error.code);
             });
           }
         )
@@ -197,13 +206,13 @@ export const store = new Vuex.Store({
           error => {
             commit('setLoading',false);
             commit('setError',error);
-            console.log(error);
+           // console.log(error);
           }
         )
     },
     onLogout ({commit}) {
       firebase.auth().signOut().then(function() {
-        console.log('Signed Out Action');
+        //console.log('Signed Out Action');
         commit('setUser', null);
       }).catch(function(error) {
         console.error('Sign Out Error', error);
