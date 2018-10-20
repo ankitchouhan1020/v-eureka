@@ -19,7 +19,8 @@
     "vuelidate": "^0.7.4",
     "vuetify": "^1.1.1",
     "vuex": "^3.0.1",
-    "webpack-ssr": "^0.1.14"
+    "webpack-ssr": "^0.1.14",
+    "url-parse": ">=1.4.3"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.1.0",
