@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import Vuetify from 'vuetify'
+import AsyncComputed from 'vue-async-computed'
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 import 'material-design-icons-iconfont/dist/material-design-icons.css' // Ensure you are using css-loader
 import '@mdi/font/css/materialdesignicons.css'
@@ -24,7 +25,7 @@ Vue.use(Vuetify, {
   },
   iconfont: 'mdi' ,// 'md' || 'mdi' || 'fa' || 'fa4'
 });
-
+Vue.use(AsyncComputed);
 Vue.config.productionTip = false;
 
 new Vue({

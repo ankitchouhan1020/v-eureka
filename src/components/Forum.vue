@@ -7,7 +7,7 @@
         <template>
           <v-expansion-panel popout focusable light>
             <v-expansion-panel-content
-              v-for="item in faq"
+              v-for="(item,index) in faq" :key="index"
             >
               <div slot="header">{{item.question}}</div>
               <v-card>

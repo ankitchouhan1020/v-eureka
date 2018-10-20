@@ -4,8 +4,8 @@
       <v-card style="padding: 30px;">
         <v-card-title primary-title>
           <div class="questionFormat">
-            <h3 class="headline mb-0">Day 1</h3>
-            <div style="margin-top:10px;">{{ getQuestion }}</div>
+            <h3 class="headline mb-0">Day {{ myResolvedDay}}</h3>
+            <div style="margin-top:10px;">{{ myResolvedValue }}</div>
           </div>
         </v-card-title>
         <v-text-field wrap
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+  import AsyncComputed from 'vue-async-computed'
   import firebase from 'firebase'
     export default {
       name: "Question",
@@ -47,33 +48,32 @@
             }
             alert('Your answer has been recorded.');
             this.userAnswer = '';
-        }
+        },
       },
-      computed: {
-        getQuestion() {
-          let tempQuestion='';
-
-          function takeQuestion(){
+      asyncComputed:{
+        myResolvedValue: {
+          get(){
             return new Promise(resolve => {
-            let ref = firebase.database().ref('question/');
-            ref.once('value', function (snapshot) {
-              let tempQuestion = snapshot.val();
-
-              resolve(tempQuestion);
+              let ref = firebase.database().ref('question/');
+              ref.once('value', function (snapshot) {
+                let tempQuestion = snapshot.val();
+                resolve(tempQuestion);
+              });
             });
+          },
+          default: ''
+        },
+        myResolvedDay: {
+          get(){
+            return new Promise(resolve => {
+              let ref = firebase.database().ref('day/');
+              ref.once('value', function (snapshot) {
+                let myday = snapshot.val();
+                resolve(myday);
+              });
             });
-          }
-          async function asyncCall() {
-            console.log('updating Question');
-            let result = await takeQuestion();
-            console.log(result);
-            return new Promise( resolve =>{
-              resolve(result);
-            })
-          }
-          let ans;
-          ans = asyncCall().then(val => Promise.resolve(val));
-          return ans;
+          },
+          default: ''
         }
       }
     }
