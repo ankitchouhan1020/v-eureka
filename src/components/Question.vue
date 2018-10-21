@@ -8,6 +8,10 @@
             <div style="margin-top:10px">{{ myResolvedValue }}</div>
           </div>
         </v-card-title>
+          <div style="margin:auto auto">
+          <img src="..\assets\q1.png" />
+          </div>
+
         <v-text-field wrap
                       type="text"
                       v-model="userAnswer"
