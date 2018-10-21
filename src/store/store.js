@@ -130,7 +130,7 @@ export const store = new Vuex.Store({
                 },
               };
               userRef.set(newUser);
-              //console.log("New user I am with uuid: " + uuid);
+              console.log("New user I am");
               commit('setUser', newUser);
             }
             else{
@@ -143,7 +143,7 @@ export const store = new Vuex.Store({
                     points: user.points,
                     flag: user.flag,
                 };
-                //console.log("Old user it is");
+                console.log("Old user it is");
                 commit('setUser', oldUser);
               });
             }
