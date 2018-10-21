@@ -150,11 +150,12 @@ export const store = new Vuex.Store({
             commit('setLoading2', false);
             console.log('Auth by google successful.');
           }
-        ).catch(() => {
+        ).catch((err) => {
           let errorCode = error.code;
           if (errorCode === 'auth/account-exists-with-different-credential') {
             alert('You have already signed up with a different auth provider for that email.');
           }
+          console.log(err);
         });
       },
     signUserUp({commit},payload) {
