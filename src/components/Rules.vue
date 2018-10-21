@@ -26,8 +26,8 @@
                   <div class="headline"><i class="fa fa-envelope"></i> Email</div>
                   <v-divider light></v-divider>
                   <div>
-                  <a href="mailto:visionmanit@gmail.com">
-                    visionmanit@gmail.com
+                  <a href="mailto:codekriegers14@gmail.com">
+                    codekriegers14@gmail.com
                   </a>
                   </div>
                  <br><br>

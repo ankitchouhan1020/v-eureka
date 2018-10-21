@@ -1,11 +1,11 @@
 <template>
   <v-layout>
-    <v-flex xs12 sm6 offset-sm3 style="margin-top: 150px;">
+    <v-flex xs12 sm6 offset-sm3 style="margin-top: 100px;">
       <v-card style="padding: 30px;">
         <v-card-title primary-title>
           <div class="questionFormat" style="text-align: center">
             <h3 class="headline mb-0">Day {{ myResolvedDay}}</h3>
-            <div style="margin-top:10px;font-size: 24px;">{{ myResolvedValue }}</div>
+            <div style="margin-top:10px">{{ myResolvedValue }}</div>
           </div>
         </v-card-title>
         <v-text-field wrap
