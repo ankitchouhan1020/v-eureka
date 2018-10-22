@@ -3,13 +3,27 @@
     <v-content>
       <h2 class="tool-title text-xs-center ">What is Code Kriegers ?</h2>
       <v-subheader class="justify-center">As if you did not know</v-subheader>
+
+      <v-alert
+        :value="true"
+        :type="success"
+      >
+        Top three participants will be awarded with certificate by Student Council MANIT Bhopal.
+      </v-alert>
+
+      <br>
       <blockquote class="tile-title">
         Coding is not only about making complex codes, rather it's an art. Code Kriegers was started
         in year 2014 to make coding a bit more enjoyable. It is a technical and fun event with 3 offline
-        and 1 online round. The participants have to participate in a team of two. The winners of
+        and 1 online round.<span style="color:#1eb980">The participants have to participate in a team of two for offline rounds.</span> The winners of
         online round are given direct entry to the second round of offline event.
         <br><br>
         Here are further details about each round
+        <br><br>
+        <h4>Online Round:</h4>
+        Online round of Code Kriegers 5.0 is organised on this website. <span style="color:#1eb980">Participants have to
+        participate individually.</span> Sign up on this website and Solve the question.Questions will be uploaded day wise. You can submit your answer
+        as many time as you want.
         <br><br>
         <h4>DAY 1: Round 1</h4>
         The first round of Code Kriegers is an app based code hunt that is the participants have to

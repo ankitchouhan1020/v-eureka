@@ -1,31 +1,31 @@
 <template>
-  <v-layout>
-    <v-flex xs12 sm6 offset-sm3 style="margin-top: 100px;">
-      <v-card style="padding: 30px;">
-        <v-card-title primary-title>
-          <div class="questionFormat" style="text-align: center">
-            <h3 class="headline mb-0">Day {{ myResolvedDay}}</h3>
-            <div style="margin-top:10px">{{ myResolvedValue }}</div>
-          </div>
-        </v-card-title>
-          <div style="margin:auto auto">
+  <v-container>
+    <v-content>
+      <h2 class="tool-title text-xs-center ">Day {{ myResolvedDay}}</h2>
+      <br>
+      <blockquote class="tile-title">
+        {{ myResolvedValue }}
+      </blockquote>
+      <br>
+      <v-lauout>
+        <v-flex style="display:flex;justify-content: center;">
           <img src="..\assets\q1.png" />
-          </div>
+        </v-flex>
+      </v-lauout>
 
-        <v-text-field wrap
-                      type="text"
-                      v-model="userAnswer"
-                      placeholder="Write your answer here"
-        ></v-text-field>
-        <v-btn
-          color="primary"
-          @click="checkAnswer()"
-        >
-          Submit
-        </v-btn>
-      </v-card>
-    </v-flex>
-  </v-layout>
+      <v-text-field wrap
+                    type="text"
+                    v-model="userAnswer"
+                    placeholder="Write your answer here"
+      ></v-text-field>
+      <v-btn
+        color="primary"
+        @click="checkAnswer()"
+      >
+        Submit
+      </v-btn>
+    </v-content>
+  </v-container>
 </template>
 
 <script>
@@ -92,5 +92,9 @@
 <style scoped>
   .questionFormat{
     margin: auto auto;
+  }
+  .tool-title{
+    font-size: 3em;
+    margin-bottom: -10px;
   }
 </style>

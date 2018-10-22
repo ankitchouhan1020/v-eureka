@@ -18,7 +18,7 @@ Vue.use(Vuetify, {
     success: '#373740',
     primary: '#1EB980',
     secondary: '#33333D',
-    error: '#FFCF44',
+    error: '#1eb980',
     third: '#B0BEC5',
     info: '#72DEFF',
     fourth: '#515162'

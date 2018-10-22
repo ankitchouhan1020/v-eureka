@@ -12,7 +12,9 @@ const Signin = () => import('@/components/Profile/Signin');
 import AuthGuard from './AuthGuard'
 
 Vue.use(Router);
+
 export default new Router({
+  base: '/ck/',
   routes: [
     {
       path: '*',
