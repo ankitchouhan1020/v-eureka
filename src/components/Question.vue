@@ -5,16 +5,15 @@
       <br>
       <blockquote class="tile-title">
         {{ myResolvedValue }}
+        <!--<v-layout>-->
+          <!--<v-flex style="display:flex;justify-content: center;">-->
+            <!--<img src="..\assets\.jpg" height="250px" width="250px"/>-->
+          <!--</v-flex>-->
+        <!--</v-layout>-->
       </blockquote>
-      <br>
-      <v-lauout>
-        <v-flex style="display:flex;justify-content: center;">
-          <img src="..\assets\q1.png" />
-        </v-flex>
-      </v-lauout>
-
+      <br><br>
       <v-text-field wrap
-                    type="text"
+                    type="number"
                     v-model="userAnswer"
                     placeholder="Write your answer here"
       ></v-text-field>
@@ -41,11 +40,14 @@
       },
       methods: {
         checkAnswer() {
-            if (this.userAnswer == this.myResolvedAnswer) {
-              this.$store.dispatch('incrementPoint',this.myResolvedDay);
-            }
-            alert('Your answer has been recorded.');
-            this.userAnswer = '';
+          if (this.userAnswer == this.myResolvedAnswer) {
+            this.$store.dispatch('incrementPoint',this.myResolvedDay);
+          }
+          else if(this.userAnswer != null){
+              this.$store.dispatch('storeAnswer',{'userAnswer': this.userAnswer,'myDay':this.myResolvedDay});
+          }
+          alert('Your answer has been recorded.');
+          this.userAnswer = '';
         },
       },
       asyncComputed:{

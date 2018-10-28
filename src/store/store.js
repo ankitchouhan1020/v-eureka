@@ -24,10 +24,8 @@ export const store = new Vuex.Store({
     ],
     loader: null,
     config: firebase.initializeApp({
-      apiKey: "AIzaSyClFfBS46nktb8Vu7LK69GsFlLip5iv4fQ",
-      authDomain: "eureka-5bd43.firebaseapp.com",
-      databaseURL: "https://eureka-5bd43.firebaseio.com",
-      projectId: "eureka-5bd43",
+		/*Firebase configuration Removed*/
+		//To use backend, Make Firebase Project and add api details here
     }),
   },
   mutations: {
@@ -66,12 +64,36 @@ export const store = new Vuex.Store({
           ref1.update({
             "points" : prevPoint + 10,
           });
-         let flagRef = ref1.child("flag").child(currentDay).update({"status": true,"lastSubmit": dateTime});
+         let flagRef = ref1.child("flag").child(currentDay).update(
+           {"status": true,
+             "lastSubmit": dateTime,
+
+           });
           //console.log("Points Incremented !!");
         }
         else{
          // console.log('Already Submitted Answer At Previous Time !!')
         }
+    },
+    storeAnswer(state,payload){
+      let today = new Date();
+      let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+      let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      let dateTime = date+' '+time;
+
+      let ref1 = firebase.database().ref('users/' + state.user.id );
+      let currentDay = payload['myDay'];
+      let wrongAnswer = payload['userAnswer'];
+      let flag = state.user.flag;
+      let testFlag = flag[currentDay];
+      if(!testFlag.status) {
+        let flagRef = ref1.child("flag").child(currentDay).update(
+          {"status": false,
+            "lastSubmit": dateTime,
+           "wrongAnswer": wrongAnswer,
+          });
+        //console.log("Wrong Answer Added.");
+      }
     },
     clearError(state){
       state.error = null;
@@ -130,7 +152,7 @@ export const store = new Vuex.Store({
                 },
               };
               userRef.set(newUser);
-              console.log("New user I am");
+              //console.log("New user I am");
               commit('setUser', newUser);
             }
             else{
@@ -143,12 +165,12 @@ export const store = new Vuex.Store({
                     points: user.points,
                     flag: user.flag,
                 };
-                console.log("Old user it is");
+                //console.log("Old user it is");
                 commit('setUser', oldUser);
               });
             }
             commit('setLoading2', false);
-            console.log('Auth by google successful.');
+            //console.log('Auth by google successful.');
           }
         ).catch((err) => {
           let errorCode = error.code;
@@ -230,6 +252,9 @@ export const store = new Vuex.Store({
     },
     incrementPoint({commit},payload){
       commit('incrementPoint',payload);
+    },
+    storeAnswer({commit},payload){
+      commit('storeAnswer',payload);
     }
   }
 });

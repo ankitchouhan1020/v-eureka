@@ -6,7 +6,6 @@
 
       <v-alert
         :value="true"
-        :type="success"
       >
         Top three participants will be awarded with certificate by Student Council MANIT Bhopal.
       </v-alert>
